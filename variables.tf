@@ -12,9 +12,13 @@ variable "function_name" {
   type    = string
   default = "line_notify"
 }
-variable "line_to" {
+variable "line_to_default" {
   type    = string
-  default = "xxxxxxxxxxxxxxxx"
+  default = ""
+}
+variable "line_channel_access_token" {
+  type    = string
+  default = ""
 }
 variable "project_name" {
   type    = string

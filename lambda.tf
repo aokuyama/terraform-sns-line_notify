@@ -1,17 +1,14 @@
 resource "aws_lambda_function" "app" {
-  function_name    = var.function_name
-  publish          = false
-  memory_size      = 128
-  timeout          = 3
-  package_type     = "Zip"
-  handler          = "lambda_function.lambda_handler"
-  filename         = data.archive_file.app.output_path
-  source_code_hash = data.archive_file.app.output_base64sha256
-  runtime          = "python3.9"
-  role             = aws_iam_role.iam_for_lambda.arn
+  function_name = var.function_name
+  memory_size   = 128
+  timeout       = 3
+  image_uri     = "${aws_ecr_repository.app.repository_url}:${var.tag_deploy}"
+  package_type  = "Image"
+  role          = aws_iam_role.iam_for_lambda.arn
   environment {
     variables = {
-      "LINE_TO" = var.line_to
+      LINE_CHANNEL_ACCESS_TOKEN = var.line_channel_access_token
+      LINE_TO_DEFAULT           = var.line_to_default
     }
   }
 }
@@ -59,9 +56,4 @@ resource "aws_iam_policy" "policy_for_lambda" {
       Version = "2012-10-17"
     }
   )
-}
-data "archive_file" "app" {
-  type        = "zip"
-  source_dir  = "app"
-  output_path = "tmp/app.zip"
 }
