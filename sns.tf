@@ -9,7 +9,7 @@ resource "aws_sns_topic_subscription" "app" {
 }
 
 resource "aws_sns_topic_policy" "default" {
-  arn = aws_sns_topic.app.arn
+  arn    = aws_sns_topic.app.arn
   policy = data.aws_iam_policy_document.sns_topic_policy.json
 }
 

@@ -16,3 +16,23 @@ variable "line_to" {
   type    = string
   default = "xxxxxxxxxxxxxxxx"
 }
+variable "project_name" {
+  type    = string
+  default = "line_notify"
+}
+variable "docker_file" {
+  type    = string
+  default = "docker/lambda/Dockerfile"
+}
+variable "tag_deploy" {
+  type    = string
+  default = "deploy"
+}
+variable "branch-name_deploy" {
+  type    = string
+  default = "main"
+}
+variable "uri_repository" {
+  type    = string
+  default = "https://github.com/aokuyama/py-line_notify.git"
+}
